@@ -14,18 +14,45 @@ if ($key -eq $correctKey) {
     Start-Sleep 3
     exit
 }
-Windows Registry Editor Version 5.00
+$correctKey = "pesatxstore"
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games]
-"GPU Priority"=dword:00000008
-"Priority"=dword:00000006
-"Scheduling Category"="High"
-"SFIO Priority"="High"
-Windows Registry Editor Version 5.00
+$key = Read-Host "Enter License Key"
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile]
-"NetworkThrottlingIndex"=dword:ffffffff
-"SystemResponsiveness"=dword:00000000
+if ($key -eq $correctKey) {
+    Write-Host "Key Correct! Running script..." -ForegroundColor Green
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl]
-"Win32PrioritySeparation"=dword:00000026
+
+    Start-Sleep 2
+    Write-Host "Script Running Successfully!"
+
+} else {
+    Write-Host "Wrong Key! Access Denied." -ForegroundColor Red
+    Start-Sleep 3
+    exit
+}
+
+netsh int tcp set global netdma=enabled
+netsh int tcp set global dca=enabled
+netsh int ipv4 set glob defaultcurhoplimit=64
+netsh int ipv6 set glob defaultcurhoplimit=64
+set supplemental congestionprovider=ctcp
+netsh int tcp set heuristics disabled
+
+netsh int ipv4 set glob defaultcurhoplimit=86
+netsh int ipv6 set glob defaultcurhoplimit=86
+set supplemental congestionprovider=ctcp
+netsh int tcp set heuristics disabled
+netsh int tcp set global rss=enabled
+netsh int tcp set global chimney=disabled
+netsh int tcp set global rsc=enabled
+netsh int tcp set global nonsackrttresiliency=disabled
+netsh int tcp set global maxsynretransmissions=4
+netsh int tcp set global fastopen=enabled
+netsh interface tcp set global ecncapability=disabled
+netsh int tcp set global autotuninglevel=restricted
+netsh int tcp set global ecncapability=disabled
+netsh int tcp set global timestamps=disabled
+netsh int tcp set global rsc=disabled
+netsh interface tcp set global autotuning=disabled
+netsh interface tcp set global rss=disabled
+netsh interface tcp set global chimney=disabled
