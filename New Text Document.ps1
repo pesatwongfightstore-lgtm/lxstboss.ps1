@@ -1,4 +1,4 @@
-$correctKey = "pesatxstore"
+$correctKey = "aura"
 
 $key = Read-Host "Enter License Key"
 
