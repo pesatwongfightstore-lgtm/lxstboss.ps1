@@ -1,19 +1,3 @@
-$correctKey = "123"
-
-$key = Read-Host "Enter License Key"
-
-if ($key -eq $correctKey) {
-    Write-Host "Key Correct! Running script..." -ForegroundColor Green
-
-
-    Start-Sleep 2
-    Write-Host "Script Running Successfully!"
-
-} else {
-    Write-Host "Wrong Key! Access Denied." -ForegroundColor Red
-    Start-Sleep 3
-    exit
-}
 $correctKey = "pesatxstore"
 
 $key = Read-Host "Enter License Key"
